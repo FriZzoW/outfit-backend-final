@@ -21,22 +21,21 @@ module.exports = async (req, res) => {
 
     const { planId, userEmail } = req.body;
 
-    // Define your plans with Stripe price IDs
-    // You'll create these in Stripe Dashboard and update these IDs
+    // Define plans (One-Time Payments / Mode Ponctuel)
     const PLANS = {
         tier1: {
             name: 'Basic',
-            priceId: process.env.STRIPE_PRICE_TIER1, // 0.99€/month
-            mode: 'subscription'
+            priceId: process.env.STRIPE_PRICE_TIER1, // 2.99€
+            mode: 'payment'
         },
         tier2: {
             name: 'Pro',
-            priceId: process.env.STRIPE_PRICE_TIER2, // 1.99€/month
-            mode: 'subscription'
+            priceId: process.env.STRIPE_PRICE_TIER2, // 5.99€
+            mode: 'payment'
         },
         lifetime: {
             name: 'Illimité',
-            priceId: process.env.STRIPE_PRICE_LIFETIME, // 2.99€ one-time
+            priceId: process.env.STRIPE_PRICE_LIFETIME, // 6.99€
             mode: 'payment'
         }
     };
@@ -55,7 +54,7 @@ module.exports = async (req, res) => {
                     quantity: 1,
                 },
             ],
-            mode: plan.mode,
+            mode: plan.mode, // 'payment' implies one-time
             success_url: `${process.env.SUCCESS_URL}?session_id={CHECKOUT_SESSION_ID}&plan=${planId}`,
             cancel_url: process.env.CANCEL_URL,
             metadata: {
