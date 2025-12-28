@@ -1,0 +1,11 @@
+{
+  "name": "outfit-extension-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Outfit Extension - Stripe Payments",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "stripe": "^14.0.0"
+  }
+}
